@@ -3520,6 +3520,66 @@ class OFPActionPopPbb(OFPAction):
         return cls()
 
 
+@OFPAction.register_action_type(ofproto.OFPAT_INC_TCP_SEQ,
+                                ofproto.OFP_ACTION_INC_TCP_SEQ_SIZE)
+class OFPActionIncTcpSeq(OFPAction):
+    """
+    Increase TCP sequence number action
+
+    This action increases the TCP sequence number.
+
+    ================ ======================================================
+    Attribute        Description
+    ================ ======================================================
+    value            TCP sequence number increment value
+    ================ ======================================================
+    """
+
+    def __init__(self, value, type_=None, len_=None):
+        super(OFPActionIncTcpSeq, self).__init__()
+        self.value = value
+
+    @classmethod
+    def parser(cls, buf, offset):
+        (type_, len_, value) = struct.unpack_from(
+            ofproto.OFP_ACTION_INC_TCP_SEQ_PACK_STR, buf, offset)
+        return cls(value)
+
+    def serialize(self, buf, offset):
+        msg_pack_into(ofproto.OFP_ACTION_INC_TCP_SEQ_PACK_STR, buf, offset,
+                      self.type, self.len, self.value)
+
+
+@OFPAction.register_action_type(ofproto.OFPAT_INC_TCP_ACK,
+                                ofproto.OFP_ACTION_INC_TCP_ACK_SIZE)
+class OFPActionIncTcpAck(OFPAction):
+    """
+    Increase TCP acknowledgement number action
+
+    This action increases the TCP acknowledgement number.
+
+    ================ ======================================================
+    Attribute        Description
+    ================ ======================================================
+    value            TCP acknowledgement number increment value
+    ================ ======================================================
+    """
+
+    def __init__(self, value, type_=None, len_=None):
+        super(OFPActionIncTcpAck, self).__init__()
+        self.value = value
+
+    @classmethod
+    def parser(cls, buf, offset):
+        (type_, len_, value) = struct.unpack_from(
+            ofproto.OFP_ACTION_INC_TCP_ACK_PACK_STR, buf, offset)
+        return cls(value)
+
+    def serialize(self, buf, offset):
+        msg_pack_into(ofproto.OFP_ACTION_INC_TCP_ACK_PACK_STR, buf, offset,
+                      self.type, self.len, self.value)
+
+
 @OFPAction.register_action_type(
     ofproto.OFPAT_EXPERIMENTER,
     ofproto.OFP_ACTION_EXPERIMENTER_HEADER_SIZE)
