@@ -3104,6 +3104,206 @@ def generate(ofp_name, ofpp_name):
             msg_pack_into(self._fmt_str, data, 0)
             return data
 
+    class NXActionIncTcpSeq(NXAction):
+        r"""
+        Increment TCP seq action
+
+        This action increases the sequence number in TCP.
+
+        And equivalent to the followings action of ovs-ofctl command.
+
+        ..
+          inc_tcp_seq:seq_delta
+        ..
+
+        +--------------------------------+
+        | **inc_tcp_seq**\:\ *seq_delta* |
+        +--------------------------------+
+
+
+        ================ ======================================================
+        Attribute        Description
+        ================ ======================================================
+        seq_delta        TCP sequence number increment value
+        ================ ======================================================
+
+        Example::
+
+            actions += [parser.NXActionIncTcpSeq(seq_delta=1)]
+        """
+        _subtype = nicira_ext.NXAST_INC_TCP_SEQ
+
+        # seq_delta
+        _fmt_str = '!2xI'
+
+        def __init__(self,
+                     seq_delta,
+                     type_=None, len_=None, vendor=None, subtype=None):
+            super(NXActionIncTcpSeq, self).__init__()
+            self.seq_delta = seq_delta
+
+        @classmethod
+        def parser(cls, buf):
+            (seq_delta,) = struct.unpack_from(
+                cls._fmt_str, buf, 0)
+            return cls(seq_delta)
+
+        def serialize_body(self):
+            data = bytearray()
+            msg_pack_into(self._fmt_str, data, 0,
+                          self.seq_delta)
+            return data
+
+    class NXActionDecTcpSeq(NXAction):
+        r"""
+        Decrement TCP seq action
+
+        This action decreases the sequence number in TCP.
+
+        And equivalent to the followings action of ovs-ofctl command.
+
+        ..
+          dec_tcp_seq:seq_delta
+        ..
+
+        +--------------------------------+
+        | **dec_tcp_seq**\:\ *seq_delta* |
+        +--------------------------------+
+
+
+        ================ ======================================================
+        Attribute        Description
+        ================ ======================================================
+        seq_delta        TCP sequence number decrement value
+        ================ ======================================================
+
+        Example::
+
+            actions += [parser.NXActionDecTcpSeq(seq_delta=1)]
+        """
+        _subtype = nicira_ext.NXAST_DEC_TCP_SEQ
+
+        # seq_delta
+        _fmt_str = '!2xI'
+
+        def __init__(self,
+                     seq_delta,
+                     type_=None, len_=None, vendor=None, subtype=None):
+            super(NXActionDecTcpSeq, self).__init__()
+            self.seq_delta = seq_delta
+
+        @classmethod
+        def parser(cls, buf):
+            (seq_delta,) = struct.unpack_from(
+                cls._fmt_str, buf, 0)
+            return cls(seq_delta)
+
+        def serialize_body(self):
+            data = bytearray()
+            msg_pack_into(self._fmt_str, data, 0,
+                          self.seq_delta)
+            return data
+
+    class NXActionIncTcpAck(NXAction):
+        r"""
+        Increment TCP ack action
+
+        This action increases the acknowledgement number in TCP.
+
+        And equivalent to the followings action of ovs-ofctl command.
+
+        ..
+          inc_tcp_ack:ack_delta
+        ..
+
+        +--------------------------------+
+        | **inc_tcp_ack**\:\ *ack_delta* |
+        +--------------------------------+
+
+
+        ================ ======================================================
+        Attribute        Description
+        ================ ======================================================
+        ack_delta        TCP acknowledgement number increment value
+        ================ ======================================================
+
+        Example::
+
+            actions += [parser.NXActionIncTcpAck(ack_delta=1)]
+        """
+        _subtype = nicira_ext.NXAST_INC_TCP_ACK
+
+        # ack_delta
+        _fmt_str = '!2xI'
+
+        def __init__(self,
+                     ack_delta,
+                     type_=None, len_=None, vendor=None, subtype=None):
+            super(NXActionIncTcpAck, self).__init__()
+            self.ack_delta = ack_delta
+
+        @classmethod
+        def parser(cls, buf):
+            (ack_delta,) = struct.unpack_from(
+                cls._fmt_str, buf, 0)
+            return cls(ack_delta)
+
+        def serialize_body(self):
+            data = bytearray()
+            msg_pack_into(self._fmt_str, data, 0,
+                          self.ack_delta)
+            return data
+
+    class NXActionDecTcpAck(NXAction):
+        r"""
+        Decrement TCP ack action
+
+        This action decreases the acknowledgement number in TCP.
+
+        And equivalent to the followings action of ovs-ofctl command.
+
+        ..
+          dec_tcp_ack:ack_delta
+        ..
+
+        +--------------------------------+
+        | **dec_tcp_ack**\:\ *ack_delta* |
+        +--------------------------------+
+
+
+        ================ ======================================================
+        Attribute        Description
+        ================ ======================================================
+        ack_delta        TCP acknowledgement number decrement value
+        ================ ======================================================
+
+        Example::
+
+            actions += [parser.NXActionDecTcpAck(ack_delta=1)]
+        """
+        _subtype = nicira_ext.NXAST_DEC_TCP_ACK
+
+        # ack_delta
+        _fmt_str = '!2xI'
+
+        def __init__(self,
+                     ack_delta,
+                     type_=None, len_=None, vendor=None, subtype=None):
+            super(NXActionDecTcpAck, self).__init__()
+            self.ack_delta = ack_delta
+
+        @classmethod
+        def parser(cls, buf):
+            (ack_delta,) = struct.unpack_from(
+                cls._fmt_str, buf, 0)
+            return cls(ack_delta)
+
+        def serialize_body(self):
+            data = bytearray()
+            msg_pack_into(self._fmt_str, data, 0,
+                          self.ack_delta)
+            return data
+
     def add_attr(k, v):
         v.__module__ = ofpp.__name__  # Necessary for stringify stuff
         setattr(ofpp, k, v)
@@ -3156,6 +3356,10 @@ def generate(ofp_name, ofpp_name):
         'NXActionEncapNsh',
         'NXActionEncapEther',
         'NXActionDecNshTtl',
+        'NXActionIncTcpSeq',
+        'NXActionDecTcpSeq',
+        'NXActionIncTcpAck',
+        'NXActionDecTcpAck',
     ]
     vars = locals()
     for name in classes:
