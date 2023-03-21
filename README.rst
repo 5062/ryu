@@ -3,6 +3,8 @@
     * The Ryu project needs new maintainers - please file an issue if you are able to assist.
     * see OpenStack's os-ken (`<https://github.com/openstack/os-ken>`_) for a maintained Ryu alternative.
 
+Modified version of Ryu with two custom actions: NXAST_INC_TP_SEQ(80) and NXAST_INC_TP_ACK(81).
+
 What's Ryu
 ==========
 Ryu is a component-based software defined networking framework.
